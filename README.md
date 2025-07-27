@@ -61,30 +61,56 @@ git clone https://github.com/your-username/mri-transformer-fewshot.git
 cd mri-transformer-fewshot
 
 # (Optional) create conda environment
-conda create -n mri-fewshot python=3.10
+conda create -n mri-fewshot python=3.10 # or use any of your python environment >= 3.10
 conda activate mri-fewshot
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Install torch 11.8 in their website, if cpu version torch is installed delete it first, then install torch 11.8
+https://pytorch.org/get-started/locally/
+
 ```
 
-> Make sure you have PyTorch >= 1.13, torchvision, numpy, nibabel, and scikit-learn.
+> Make sure you have PyTorch >= 11.8, torchvision, numpy, nibabel, and scikit-learn.
+
+---
+
+## 🧾 Pretrained Weights
+
+Pretrained MAE weights trained on 31M slices are available on [https://drive.google.com/file/d/1UCl0SG1bwAcv-udxMsuVPupGQO4s8NIH/view?usp=drive_link].
+
+Download and place them in:
+
+```
+./saved_models
+```
 
 ---
 
 ## 🧪 Usage & Demos
+### 🔍 0. Download Demo Dataset and Model
+Download demo data from https://drive.google.com/file/d/1o2Gq5eE6WFvJbjqP4o1Z0-SCc8c7Tv1F/view?usp=drive_link and put it in:
+```
+./finetune_models
+```
+
+Download pretrained/finetune model from https://drive.google.com/file/d/1NwhOgGvIVJUknQoPm7aTcx2q2y9ouc0U/view?usp=drive_link and put it in:
+```
+./finetune_data 
+```
 
 ### 🔍 1. MRI Sequence Classification
 
 **Demo:**  
-```bash
-Run `sequence_detection_demo.ipynb`
-```
+
+Open and run sequence_detection_demo.ipynb
+
 
 **Few-shot fine-tuning:**  
-```bash
-Run `sequence_detection_finetune.ipynb`
-```
+
+Open and run sequence_detection_finetune.ipynb
+
 
 This loads a frozen MAE encoder and a lightweight classifier head for predicting MRI sequences (T1, T2, FLAIR, etc.).
 
@@ -93,14 +119,14 @@ This loads a frozen MAE encoder and a lightweight classifier head for predicting
 ### 🧠 2. Skull Stripping
 
 **Demo:**  
-```bash
-Run `skull_strip_demo.ipynb`
-```
+
+Open and run skull_strip_demo.ipynb
+
 
 **Few-shot fine-tuning:**  
-```bash
-Run `skull_strip_finetune.ipynb`
-```
+
+Open and run skull_strip_finetune.ipynb
+
 
 Performs binary brain extraction from T1, T2, PD, FLAIR, or DWI images.
 
@@ -109,34 +135,23 @@ Performs binary brain extraction from T1, T2, PD, FLAIR, or DWI images.
 ### 🧩 3. Multi-Class Anatomical Segmentation
 
 **Demo:**  
-```bash
-Run `multi_segmentation_demo.ipynb`
-```
+
+Open and run multi_segmentation_demo.ipynb
+
 
 **Few-shot fine-tuning:**  
-```bash
-Run `multi_segmentation_finetune.ipynb`
-```
+
+Open and run multi_segmentation_finetune.ipynb
+
 
 Segments up to 13 anatomical structures from T1-weighted brain MRIs. Results are evaluated using Dice and IoU scores.
 
 ---
 
-## 🧾 Pretrained Weights
-
-Pretrained MAE weights trained on 31M slices are available on [Google Drive / HuggingFace 🤗 link TBD].
-
-Download and place them in:
-
-```
-./nets/checkpoints/mae_pretrained/
-```
-
----
 
 ## 📊 Reproducing Results
 
-All experiments reported in the paper can be reproduced using the fine-tune notebooks. Adjust `stride`, `sample_size`, and `dataset` parameters to match each benchmark:
+Please note the demo and finetuning above are for demostration only. For simulating experiments reported in the paper please construct your own downstream datasets using detailed parameters mentioned in paper to match each benchmark:
 
 - **Sequence Detection** (Section 3.1)
 - **Skull Stripping (NFBS, SynthStrip)** (Section 3.2)
@@ -180,5 +195,6 @@ This project is licensed under the MIT License. See `LICENSE` for details.
 ## 📬 Contact
 
 For questions or collaborations, please contact:  
+**Mengyu Li** – *limengyu@bu.edu*  
 **Prof. Xin Zhang** – *xinz@bu.edu*  
 Boston University Photonics Center
